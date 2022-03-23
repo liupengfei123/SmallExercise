@@ -27,7 +27,8 @@
         <file>log/TrafficLight-01.log</file>
         <append>true</append>
         <encoder>
-            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+<!--            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>-->
+            <Pattern>%date %level %msg%n%n</Pattern>
             <charset>utf-8</charset>
         </encoder>
     </appender>

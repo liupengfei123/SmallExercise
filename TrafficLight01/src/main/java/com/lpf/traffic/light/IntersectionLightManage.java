@@ -1,11 +1,14 @@
 package com.lpf.traffic.light;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * 十字路口 红绿灯信号管理
  * @author liupf
  */
 public class IntersectionLightManage extends Thread {
-
+    private final static Logger LOGGER = LoggerFactory.getLogger(Main.class);
     /**
      * 北 东 南 西 顺时钟顺序点亮
      */
@@ -26,8 +29,6 @@ public class IntersectionLightManage extends Thread {
         lights = new Light[]{northLight, eastLight, southLight, westLight};
     }
 
-
-    // todo  控制红绿灯规律切换
 
     @Override
     public void run() {
@@ -52,6 +53,8 @@ public class IntersectionLightManage extends Thread {
             light.setRed();
         }
         lights[index].setGreet();
+
+        LOGGER.info("红绿灯切换，当前绿灯为：{}", lights[index]);
     }
 
 

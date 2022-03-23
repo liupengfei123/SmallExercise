@@ -1,17 +1,15 @@
 package com.lpf.traffic.light.turn;
 
-import com.lpf.traffic.light.Road;
-
 public class StraightHandle implements TurnHandle {
 
-    private Road road;
+    private TurnControl turnControl;
 
-    public StraightHandle(Road road) {
-        this.road = road;
+    public StraightHandle(TurnControl turnControl) {
+        this.turnControl = turnControl;
     }
 
     @Override
     public void turnCar() {
-        road.goStraight();
+        turnControl.goStraight();
     }
 }

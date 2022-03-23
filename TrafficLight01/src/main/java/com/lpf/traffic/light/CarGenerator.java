@@ -1,5 +1,9 @@
 package com.lpf.traffic.light;
 
+import com.lpf.traffic.light.turn.TurnControl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -7,7 +11,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @author liupf
  */
 public class CarGenerator extends Thread{
-
+    private final static Logger LOGGER = LoggerFactory.getLogger(Main.class);
     /** 北 东 南 西
      *
      *  左  直  右
@@ -20,23 +24,23 @@ public class CarGenerator extends Thread{
 
     private AtomicInteger idGenerator;
 
-    private Road northRoad;
+    private TurnControl northTurnControl;
 
-    private Road southRoad;
+    private TurnControl southTurnControl;
 
-    private Road eastRoad;
+    private TurnControl eastTurnControl;
 
-    private Road westRoad;
+    private TurnControl westTurnControl;
 
 
-    public CarGenerator(Road northRoad, Road southRoad, Road eastRoad, Road westRoad) {
+    public CarGenerator(TurnControl northTurnControl, TurnControl southTurnControl, TurnControl eastTurnControl, TurnControl westTurnControl) {
         super("CarGenerator Thread");
         idGenerator = new AtomicInteger(0);
 
-        this.northRoad = northRoad;
-        this.southRoad = southRoad;
-        this.eastRoad = eastRoad;
-        this.westRoad = westRoad;
+        this.northTurnControl = northTurnControl;
+        this.southTurnControl = southTurnControl;
+        this.eastTurnControl = eastTurnControl;
+        this.westTurnControl = westTurnControl;
     }
 
     @Override
@@ -54,35 +58,35 @@ public class CarGenerator extends Thread{
     }
 
     private void createRandomCarToRoad() {
-        int value = ThreadLocalRandom.current().nextInt(12);
-
-        int roadIndex = value / 4;
-        int directionIndex = value % 4;
+        int roadIndex = ThreadLocalRandom.current().nextInt(4);
+        int directionIndex = ThreadLocalRandom.current().nextInt(3);
 
         Car car = createCar(roadIndex, directionIndex);
 
-        Road road = null;
+        LOGGER.debug("生产车辆：{}", car);
+
+        TurnControl turnControl = null;
         switch (roadIndex) {
-            case DirectionConstant.NORTH : road = northRoad; break;
-            case DirectionConstant.EAST : road = eastRoad; break;
-            case DirectionConstant.SOUTH : road = southRoad; break;
-            case DirectionConstant.WEST : road = westRoad; break;
+            case DirectionConstant.NORTH : turnControl = northTurnControl; break;
+            case DirectionConstant.EAST : turnControl = eastTurnControl; break;
+            case DirectionConstant.SOUTH : turnControl = southTurnControl; break;
+            case DirectionConstant.WEST : turnControl = westTurnControl; break;
         }
 
-        carToRoad(car, road, directionIndex);
+        carToRoad(car, turnControl, directionIndex);
     }
 
-    private void carToRoad(Car car, Road road, int directionIndex) {
+    private void carToRoad(Car car, TurnControl turnControl, int directionIndex) {
         switch (directionIndex) {
-            case DirectionConstant.LEFT : road.wantTurnLeft(car); break;
-            case DirectionConstant.STRAIGHT : road.wantStraight(car); break;
-            case DirectionConstant.RIGHT : road.wantTurnRight(car); break;
+            case DirectionConstant.LEFT : turnControl.wantTurnLeft(car); break;
+            case DirectionConstant.STRAIGHT : turnControl.wantStraight(car); break;
+            case DirectionConstant.RIGHT : turnControl.wantTurnRight(car); break;
         }
     }
 
 
     private Car createCar(int roadIndex, int direction) {
-        return new Car(idGenerator.addAndGet(1), fromToInfos[roadIndex][direction]);
+        return new Car(idGenerator.addAndGet(1), fromToInfos[roadIndex][direction], direction);
     }
 
 }

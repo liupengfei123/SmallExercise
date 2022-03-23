@@ -1,6 +1,7 @@
 package com.lpf.traffic.light;
 
 
+import com.lpf.traffic.light.turn.StraightAndLeftInSameLaneTurnControl;
 import com.lpf.traffic.light.turn.StraightHandle;
 
 /** 路口
@@ -8,47 +9,70 @@ import com.lpf.traffic.light.turn.StraightHandle;
  */
 public class Junction {
 
-    /**
-     * 北
-     */
-    private DriveCarHelp northDriveCarHelp;
+    private CarDriveControl northCarDriveControl;
+    private CarDriveControl southCarDriveControl;
+    private CarDriveControl eastCarDriveControl;
+    private CarDriveControl westCarDriveControl;
 
-    private DriveCarHelp northGoRightDriveCarHelp;
+    private Junction() {
+    }
 
-    /**
-     * 南
-     */
-    private DriveCarHelp southDriveCarHelp;
 
-    /**
-     * 西
-     */
-    private DriveCarHelp eastDriveCarHelp;
 
-    /**
-     * 东
-     */
-    private DriveCarHelp westDriveCarHelp;
-
+    public void start() {
+        northCarDriveControl.start();
+        southCarDriveControl.start();
+        eastCarDriveControl.start();
+        westCarDriveControl.start();
+    }
 
     // 通过 build 将  Light  road 与 DriveCarHelp 关联，
 
     public static class JunctionBuild {
-        private DriveCarHelp northDriveCarHelp;
-        private DriveCarHelp southDriveCarHelp;
-        private DriveCarHelp eastDriveCarHelp;
-        private DriveCarHelp westDriveCarHelp;
+        private CarDriveControl northCarDriveControl;
+        private CarDriveControl southCarDriveControl;
+        private CarDriveControl eastCarDriveControl;
+        private CarDriveControl westCarDriveControl;
 
 
-        public void buildNorthDriveCarHelp() {
-            Light light = new Light();
-
-            IntersectionRoad intersectionRoad = new IntersectionRoad("北");
-            StraightHandle straightHandle = new StraightHandle(intersectionRoad);
-
-            northDriveCarHelp = new DriveCarHelp(light, straightHandle);
+        public void buildNorthCarDriveControl(CarDriveControl temp) {
+            northCarDriveControl = temp;
         }
 
+        public void buildSouthCarDriveControl(CarDriveControl temp) {
+            southCarDriveControl = temp;
+        }
+
+        public void buildEastCarDriveControl(CarDriveControl temp) {
+            eastCarDriveControl = temp;
+        }
+
+        public void buildWestCarDriveControl(CarDriveControl temp) {
+            westCarDriveControl = temp;
+        }
+
+        public Junction build() {
+            if (northCarDriveControl == null) {
+                throw new NullPointerException("northCarDriveControl cat not null");
+            }
+            if (southCarDriveControl == null) {
+                throw new NullPointerException("northCarDriveControl cat not null");
+            }
+            if (eastCarDriveControl == null) {
+                throw new NullPointerException("northCarDriveControl cat not null");
+            }
+            if (westCarDriveControl == null) {
+                throw new NullPointerException("northCarDriveControl cat not null");
+            }
+
+            Junction junction = new Junction();
+            junction.northCarDriveControl = this.northCarDriveControl;
+            junction.southCarDriveControl = this.southCarDriveControl;
+            junction.eastCarDriveControl = this.eastCarDriveControl;
+            junction.westCarDriveControl = this.westCarDriveControl;
+
+            return junction;
+        }
 
     }
 

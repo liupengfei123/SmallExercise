@@ -1,8 +1,8 @@
-package com.lpf.traffic.light;
+package com.lpf.traffic.light.turn;
 
-public interface Road {
+import com.lpf.traffic.light.Car;
 
-    String getName();
+public interface TurnControl {
 
     void wantStraight(Car car);
 

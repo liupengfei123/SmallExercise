@@ -10,27 +10,28 @@ import org.slf4j.LoggerFactory;
  *
  * @author liupf
  */
-public class DriveCarHelp extends Thread {
+public class CarDriveControl extends Thread {
     private final static Logger LOGGER = LoggerFactory.getLogger(Main.class);
 
     private Light light;
     private TurnHandle turnHandle;
 
 
-    public DriveCarHelp(Light light, TurnHandle turnHandle) {
+    public CarDriveControl(Light light, TurnHandle turnHandle) {
+        super("CarDriveControl thread");
+
         this.light = light;
         this.turnHandle = turnHandle;
     }
 
     @Override
     public void run() {
-
         while (true) {
             if (light.isGreet()) {
                 turnHandle.turnCar();
 
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(100);
                 } catch (InterruptedException e) {
                     break;
                 }
