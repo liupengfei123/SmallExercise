@@ -1,27 +1,19 @@
 package com.lpf.traffic.light;
 
+public interface Road {
 
-import java.util.Queue;
-import java.util.concurrent.LinkedBlockingQueue;
+    String getName();
 
-/** 道路
- * @author liupf
- */
-public class Road {
+    void wantStraight(Car car);
 
-    private Queue<Car> queue;
+    void wantTurnLeft(Car car);
 
-    public Road() {
-        // 暂时无视一条路上能容纳多少两车
-        this.queue = new LinkedBlockingQueue<Car>();
-    }
+    void wantTurnRight(Car car);
 
 
-    public void runInto(Car car) {
-        queue.offer(car);
-    }
+    Car goStraight();
 
-    public Car runOut() {
-        return queue.poll();
-    }
+    Car goTurnLeft();
+
+    Car goTurnRight();
 }

@@ -4,27 +4,14 @@ package com.lpf.traffic.light;
  * 十字路口 红绿灯信号管理
  * @author liupf
  */
-public class IntersectionLightManage {
+public class IntersectionLightManage extends Thread {
 
     /**
-     * 北
+     * 北 东 南 西 顺时钟顺序点亮
      */
-    private Light northLight;
+    private Light[] lights;
 
-    /**
-     * 南
-     */
-    private Light southLight;
-
-    /**
-     * 西
-     */
-    private Light eastLight;
-
-    /**
-     * 东
-     */
-    private Light westLight;
+    private int index = 0;
 
     /**
      * 红路灯切换间隔
@@ -32,14 +19,43 @@ public class IntersectionLightManage {
     private long switchInterval;
 
 
-    public IntersectionLightManage(Light northLight, Light southLight, Light eastLight, Light westLight) {
-        this.northLight = northLight;
-        this.southLight = southLight;
-        this.eastLight = eastLight;
-        this.westLight = westLight;
+    public IntersectionLightManage(Light northLight, Light southLight, Light eastLight, Light westLight, long switchInterval) {
+        super("IntersectionLightManage Thread");
+        this.switchInterval = switchInterval;
+
+        lights = new Light[]{northLight, eastLight, southLight, westLight};
     }
 
 
     // todo  控制红绿灯规律切换
 
+    @Override
+    public void run() {
+        while (true) {
+            try {
+                runGreen();
+                nextIndex();
+
+                Thread.sleep(switchInterval);
+            } catch (InterruptedException e) {
+                break;
+            }
+        }
+    }
+
+    private void nextIndex() {
+        index = ++index % lights.length;
+    }
+
+    private void runGreen() {
+        for (Light light : lights) {
+            light.setRed();
+        }
+        lights[index].setGreet();
+    }
+
+
+    public void setSwitchInterval(long switchInterval) {
+        this.switchInterval = switchInterval;
+    }
 }

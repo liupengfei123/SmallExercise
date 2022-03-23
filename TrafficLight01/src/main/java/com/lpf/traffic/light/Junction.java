@@ -9,31 +9,25 @@ public class Junction {
     /**
      * 北
      */
-    private Light northLight;
-
-    private Road northRoad;
+    private DriveCarHelp northDriveCarHelp;
 
     /**
      * 南
      */
-    private Light southLight;
-
-    private Road southRoad;
+    private DriveCarHelp southDriveCarHelp;
 
     /**
      * 西
      */
-    private Light eastLight;
-
-    private Road eastRoad;
+    private DriveCarHelp eastDriveCarHelp;
 
     /**
      * 东
      */
-    private Light westLight;
+    private DriveCarHelp westDriveCarHelp;
 
-    private Road westRoad;
 
+    // 通过 build 将  Light  road 与 DriveCarHelp 关联，
 
 
 }
