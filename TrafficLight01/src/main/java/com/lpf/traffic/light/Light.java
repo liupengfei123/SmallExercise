@@ -1,5 +1,8 @@
 package com.lpf.traffic.light;
 
+import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.ReentrantLock;
+
 /**
  * 红绿灯信号
  * @author liupf
@@ -14,8 +17,24 @@ public class Light {
 
     private String name;
 
+    private ReentrantLock lock;
+    private Condition condition;
+
     public Light(String name) {
+        this.lock = new ReentrantLock();
+        this.condition = lock.newCondition();
         this.name = name;
+    }
+
+    public void lock() {
+        lock.lock();
+    }
+    public void unlock() {
+        lock.unlock();
+    }
+
+    public void await() throws InterruptedException {
+        condition.await();
     }
 
     public String getName() {
@@ -23,7 +42,13 @@ public class Light {
     }
 
     public void setGreet() {
-        state = GREEN;
+        lock();
+        try {
+            state = GREEN;
+            condition.signalAll();
+        } finally {
+            unlock();
+        }
     }
 
     public void setRed() {

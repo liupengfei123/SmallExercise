@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * 十字路口 红绿灯信号管理
+ * 左转与直行同一信号灯
  * @author liupf
  */
 public class IntersectionLightManage extends Thread {

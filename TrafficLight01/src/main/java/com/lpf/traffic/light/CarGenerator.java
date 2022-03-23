@@ -10,7 +10,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 /** 随机车辆生成器
  * @author liupf
  */
-public class CarGenerator extends Thread{
+public class CarGenerator extends Thread {
     private final static Logger LOGGER = LoggerFactory.getLogger(Main.class);
     /** 北 东 南 西
      *
@@ -51,7 +51,6 @@ public class CarGenerator extends Thread{
 
                 createRandomCarToRoad();
             } catch (InterruptedException e) {
-                e.printStackTrace();
                 break;
             }
         }
