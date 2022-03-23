@@ -1,6 +1,9 @@
 package com.lpf.traffic.light;
 
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.Queue;
 import java.util.concurrent.LinkedBlockingQueue;
 
@@ -8,6 +11,7 @@ import java.util.concurrent.LinkedBlockingQueue;
  * @author liupf
  */
 public class IntersectionRoad implements Road {
+    private final static Logger LOGGER = LoggerFactory.getLogger(Main.class);
 
     private String name;
 
@@ -44,17 +48,23 @@ public class IntersectionRoad implements Road {
     }
 
     @Override
-    public Car goStraight() {
-        return queueLeftAndStraight.poll();
+    public void goStraight() {
+        Car car = queueLeftAndStraight.poll();
+        // todo 直接驶出 或者下一个道路上
+        LOGGER.info("car {}, in road: {}, go run", car, name);
     }
 
     @Override
-    public Car goTurnLeft() {
-        return queueLeftAndStraight.poll();
+    public void goTurnLeft() {
+        Car car = queueLeftAndStraight.poll();
+
+        LOGGER.info("car {}, in road: {}, go run", car, name);
     }
 
     @Override
-    public Car goTurnRight() {
-        return queueRight.poll();
+    public void goTurnRight() {
+        Car car = queueRight.poll();
+
+        LOGGER.info("car {}, in road: {}, go run", car, name);
     }
 }

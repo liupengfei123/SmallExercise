@@ -11,9 +11,9 @@ public interface Road {
     void wantTurnRight(Car car);
 
 
-    Car goStraight();
+    void goStraight();
 
-    Car goTurnLeft();
+    void goTurnLeft();
 
-    Car goTurnRight();
+    void goTurnRight();
 }

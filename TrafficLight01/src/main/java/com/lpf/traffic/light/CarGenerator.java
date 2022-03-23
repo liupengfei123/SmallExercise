@@ -59,14 +59,14 @@ public class CarGenerator extends Thread{
         int roadIndex = value / 4;
         int directionIndex = value % 4;
 
-        Car car = new Car(idGenerator.addAndGet(1), fromToInfos[roadIndex][directionIndex]);
+        Car car = createCar(roadIndex, directionIndex);
 
         Road road = null;
         switch (roadIndex) {
-            case 0 : road = northRoad; break;
-            case 1 : road = eastRoad; break;
-            case 2 : road = southRoad; break;
-            case 3 : road = westRoad; break;
+            case DirectionConstant.NORTH : road = northRoad; break;
+            case DirectionConstant.EAST : road = eastRoad; break;
+            case DirectionConstant.SOUTH : road = southRoad; break;
+            case DirectionConstant.WEST : road = westRoad; break;
         }
 
         carToRoad(car, road, directionIndex);
@@ -74,15 +74,15 @@ public class CarGenerator extends Thread{
 
     private void carToRoad(Car car, Road road, int directionIndex) {
         switch (directionIndex) {
-            case 0 : road.wantTurnLeft(car); break;
-            case 1 : road.wantStraight(car); break;
-            case 2 : road.wantTurnRight(car); break;
+            case DirectionConstant.LEFT : road.wantTurnLeft(car); break;
+            case DirectionConstant.STRAIGHT : road.wantStraight(car); break;
+            case DirectionConstant.RIGHT : road.wantTurnRight(car); break;
         }
     }
 
 
-    private Car createCar(int id, String fromTo) {
-        return new Car(id, fromTo);
+    private Car createCar(int roadIndex, int direction) {
+        return new Car(idGenerator.addAndGet(1), fromToInfos[roadIndex][direction]);
     }
 
 }

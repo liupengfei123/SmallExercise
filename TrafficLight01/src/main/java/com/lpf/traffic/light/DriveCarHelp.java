@@ -1,6 +1,7 @@
 package com.lpf.traffic.light;
 
 
+import com.lpf.traffic.light.turn.TurnHandle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,12 +14,12 @@ public class DriveCarHelp extends Thread {
     private final static Logger LOGGER = LoggerFactory.getLogger(Main.class);
 
     private Light light;
-    private Road road;
+    private TurnHandle turnHandle;
 
 
-    public DriveCarHelp(Light light, Road road) {
+    public DriveCarHelp(Light light, TurnHandle turnHandle) {
         this.light = light;
-        this.road = road;
+        this.turnHandle = turnHandle;
     }
 
     @Override
@@ -26,15 +27,13 @@ public class DriveCarHelp extends Thread {
 
         while (true) {
             if (light.isGreet()) {
-                Car car = road.goStraight();
+                turnHandle.turnCar();
 
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     break;
                 }
-
-                LOGGER.info("car {}, in road: {}, go run", car, road.getName());
             }
         }
     }
