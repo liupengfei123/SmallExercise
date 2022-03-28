@@ -7,10 +7,13 @@
     <groupId>org.lpf</groupId>
     <artifactId>SmallExercise</artifactId>
     <version>1.0</version>
+    <packaging>pom</packaging>
+
+
     <modules>
         <module>TrafficLight01</module>
+        <module>TrafficLightParent</module>
     </modules>
-    <packaging>pom</packaging>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

@@ -3,31 +3,33 @@ package com.lpf.traffic.light;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * 十字路口 红绿灯信号管理
  * 左转与直行同一信号灯
  * @author liupf
  */
-public class IntersectionLightManage extends Thread {
-    private final static Logger LOGGER = LoggerFactory.getLogger(Main.class);
+public final class LightManage extends Thread {
+    private final static Logger LOGGER = LoggerFactory.getLogger(LightManage.class);
     /**
      * 北 东 南 西 顺时钟顺序点亮
      */
-    private Light[] lights;
-
-    private int index = 0;
+    private Map<Integer, Light> lightMap;
 
     /**
      * 红路灯切换间隔
      */
     private long switchInterval;
 
+    private LightManageHandle lightManageHandle;
 
-    public IntersectionLightManage(Light northLight, Light southLight, Light eastLight, Light westLight, long switchInterval) {
+    public LightManage(LightManageHandle lightManageHandle, long switchInterval) {
         super("IntersectionLightManage Thread");
         this.switchInterval = switchInterval;
-
-        lights = new Light[]{northLight, eastLight, southLight, westLight};
+        this.lightManageHandle = lightManageHandle;
+        this.lightMap = new HashMap<>();
     }
 
 
@@ -36,7 +38,6 @@ public class IntersectionLightManage extends Thread {
         while (true) {
             try {
                 runGreen();
-                nextIndex();
 
                 Thread.sleep(switchInterval);
             } catch (InterruptedException e) {
@@ -45,18 +46,24 @@ public class IntersectionLightManage extends Thread {
         }
     }
 
-    private void nextIndex() {
-        index = ++index % lights.length;
+    public void addLight(int position, Light light) {
+        lightMap.put(position, light);
     }
+
 
     private void runGreen() {
-        for (Light light : lights) {
+        int greenLightKey = this.lightManageHandle.getNextGreenLight();
+        lightMap.forEach((key, light) -> {
             light.setRed();
-        }
-        lights[index].setGreet();
 
-        LOGGER.info("红绿灯切换，当前绿灯为：{}", lights[index]);
+            if ((key & greenLightKey) != 0) {
+                light.setGreet();
+                LOGGER.info("红绿灯切换，当前绿灯为：{}", light);
+            }
+        });
     }
+
+
 
 
     public void setSwitchInterval(long switchInterval) {

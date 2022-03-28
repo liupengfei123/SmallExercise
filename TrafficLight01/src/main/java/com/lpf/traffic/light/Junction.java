@@ -1,8 +1,6 @@
 package com.lpf.traffic.light;
 
 
-import com.lpf.traffic.light.turn.StraightAndLeftInSameLaneTurnControl;
-import com.lpf.traffic.light.turn.StraightHandle;
 
 /** 路口
  * @author liupf

@@ -14,9 +14,14 @@ public class Main {
         Light eLight = new Light("东");
         Light wLight = new Light("西");
 
+        StraightAndLeftInSameLaneLightManageHandle handle = new StraightAndLeftInSameLaneLightManageHandle();
 
-        IntersectionLightManage lightManage = new IntersectionLightManage(nLight, sLight, eLight, wLight, 5000);
 
+        LightManage lightManage = new LightManage(handle, 5000);
+        lightManage.addLight(LightConstant.NORTH_STRAIGHT, nLight);
+        lightManage.addLight(LightConstant.EAST_STRAIGHT, eLight);
+        lightManage.addLight(LightConstant.SOUTH_STRAIGHT, sLight);
+        lightManage.addLight(LightConstant.WEST_STRAIGHT, wLight);
 
         TurnControl northTurnControl = ObjectFactory.createStraightAndLeftInSameLaneTurnControl("北");
         TurnControl southTurnControl = ObjectFactory.createStraightAndLeftInSameLaneTurnControl("南");

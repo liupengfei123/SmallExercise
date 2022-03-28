@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
  * @author liupf
  */
 public class CarDriveControl extends Thread {
-    private final static Logger LOGGER = LoggerFactory.getLogger(Main.class);
+    private final static Logger LOGGER = LoggerFactory.getLogger(CarDriveControl.class);
 
     private Light light;
     private TurnHandle turnHandle;
