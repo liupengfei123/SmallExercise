@@ -1,6 +1,8 @@
-package com.lpf.traffic.light;
+package com.lpf.traffic.light.model1;
 
 
+import com.lpf.traffic.light.CarDriveControl;
+import com.lpf.traffic.light.Light;
 import com.lpf.traffic.light.turn.StraightHandle;
 import com.lpf.traffic.light.turn.TurnControl;
 

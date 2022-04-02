@@ -1,4 +1,7 @@
-package com.lpf.traffic.light;
+package com.lpf.traffic.light.model1;
+
+import com.lpf.traffic.light.LightConstant;
+import com.lpf.traffic.light.LightManageHandle;
 
 public class StraightAndLeftInSameLaneLightManageHandle implements LightManageHandle {
 

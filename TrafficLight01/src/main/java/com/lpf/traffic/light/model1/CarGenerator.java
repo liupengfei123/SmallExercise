@@ -1,5 +1,7 @@
-package com.lpf.traffic.light;
+package com.lpf.traffic.light.model1;
 
+import com.lpf.traffic.light.Car;
+import com.lpf.traffic.light.DirectionConstant;
 import com.lpf.traffic.light.turn.TurnControl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,7 +13,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @author liupf
  */
 public class CarGenerator extends Thread {
-    private final static Logger LOGGER = LoggerFactory.getLogger(Main.class);
+    private final static Logger LOGGER = LoggerFactory.getLogger(CarGenerator.class);
     /** 北 东 南 西
      *
      *  左  直  右

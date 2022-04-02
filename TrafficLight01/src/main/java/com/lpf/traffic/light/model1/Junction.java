@@ -1,6 +1,7 @@
-package com.lpf.traffic.light;
+package com.lpf.traffic.light.model1;
 
 
+import com.lpf.traffic.light.CarDriveControl;
 
 /** 路口
  * @author liupf

@@ -1,6 +1,8 @@
-package com.lpf.traffic.light;
+package com.lpf.traffic.light.model1;
 
 
+import com.lpf.traffic.light.Car;
+import com.lpf.traffic.light.DirectionConstant;
 import com.lpf.traffic.light.turn.TurnControl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

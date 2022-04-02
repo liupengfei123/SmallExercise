@@ -13,6 +13,7 @@
     <modules>
         <module>TrafficLight01</module>
         <module>TrafficLightParent</module>
+        <module>TrafficLight02</module>
     </modules>
 
     <properties>
