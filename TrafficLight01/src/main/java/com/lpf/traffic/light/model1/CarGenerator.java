@@ -15,7 +15,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class CarGenerator extends Thread {
     private final static Logger LOGGER = LoggerFactory.getLogger(CarGenerator.class);
     /** 北 东 南 西
-     *
      *  左  直  右
      */
     private static final String[][] fromToInfos = new String[][]{{"from 北 to 东", "from 北 to 南", "from 北 to 西"},
