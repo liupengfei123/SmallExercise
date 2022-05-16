@@ -30,10 +30,16 @@ public class CarDriveControl extends Thread {
         while (true) {
             light.lock();
             try {
+                // 只是为了红灯时线程休眠减少消耗
                 while (light.isRed()) {
                     light.await();
                 }
-
+            } catch (InterruptedException e) {
+                break;
+            } finally {
+                light.unlock();
+            }
+            try {
                 if (light.isGreet()) {
                     turnHandle.turnCar();
 
@@ -41,8 +47,6 @@ public class CarDriveControl extends Thread {
                 }
             } catch (InterruptedException e) {
                 break;
-            } finally {
-                light.unlock();
             }
         }
     }

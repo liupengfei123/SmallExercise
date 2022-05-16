@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 import java.util.Queue;
 import java.util.concurrent.LinkedBlockingQueue;
 
-/** 直行和左转同车道 
+/** 直行和左转分开
  * 
  * @author liupf
  */
